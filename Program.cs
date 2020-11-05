@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,30 +34,60 @@ namespace Adressbok
             for(int i = 0; i < fileContent.Length; i++)
             {
                 string dummy = fileContent[i];
-                string[] dummyArray = dummy.Split(' ');
+                string[] dummyArray = dummy.Split(',');
                 PersonInfo P = new PersonInfo(dummyArray[0], dummyArray[1], dummyArray[2], dummyArray[3]);
+                personer.Add(P);
             }
 
-            Console.WriteLine("Välkommen till adressboken" +
-                              "\nVad vill du göra?" +
-                              "\nKommandon: ['add', 'remove', 'save']");
+            Console.WriteLine("Välkommen till adressboken");
+                              
 
             do
             {
+                Console.WriteLine("\nVad vill du göra?" +
+                                  "\nKommandon: ['add', 'remove', 'save', 'show']");
                 Console.Write("> ");
                 string command = Console.ReadLine();
                 switch (command)
                 {
                     case "add":
+                        string[] nyPersonArr = AddPerson();
+                        PersonInfo nyPerson = new PersonInfo(nyPersonArr[0], nyPersonArr[1], nyPersonArr[2], nyPersonArr[3]);
+                        personer.Add(nyPerson);
                         break;
                     case "remove":
                         break;
                     case "save":
                         break;
+                    case "show":
+                        for(int i = 0; i < personer.Count; i++)
+                        {
+                            Console.WriteLine(i + 1 + ": " + personer[i].namn + ", " + personer[i].adress + ", " + personer[i].telefon + ", " + personer[i].email);
+                        }
+                        break;
+                    case "quit":
+                        checker = true;
+                        break;
                     default:
+                        Console.WriteLine("Detta kommando finns inte!\nFörsök igen");
                         break;
                 }
             } while (!checker);
         }
+
+        public static string[] AddPerson()
+        {
+            string[] dummy = new string[4];
+            Console.Write("Ange namn: ");
+            dummy[0] = Console.ReadLine();
+            Console.Write("Ange adress: ");
+            dummy[1] = Console.ReadLine();
+            Console.Write("Ange telefon: ");
+            dummy[2] = Console.ReadLine();
+            Console.Write("Ange email: ");
+            dummy[3] = Console.ReadLine();
+            return dummy;
+        }
+
     }
 }
