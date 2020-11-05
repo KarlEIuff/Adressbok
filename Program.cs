@@ -45,7 +45,7 @@ namespace Adressbok
             do
             {
                 Console.WriteLine("\nVad vill du göra?" +
-                                  "\nKommandon: ['add', 'show', 'remove', 'save']");
+                                  "\nKommandon: ['add', 'show', 'remove', 'save', 'quit']");
                 Console.Write("> ");
                 string command = Console.ReadLine();
                 switch (command)
@@ -69,6 +69,20 @@ namespace Adressbok
                         personer.RemoveAt(removePos - 1);
                         break;
                     case "save":
+                        File.WriteAllText(filePath, "");
+                        using(StreamWriter sw = File.CreateText(filePath))
+                        {
+                            for (int i = 0; i < personer.Count; i++)
+                            {
+                                string[] dummy = new string[4];
+                                dummy[0] = personer[i].namn;
+                                dummy[1] = personer[i].adress;
+                                dummy[2] = personer[i].telefon;
+                                dummy[3] = personer[i].email;
+                                string fullText = dummy[0] + ", " + dummy[1] + ", " + dummy[2] + ", " + dummy[3];
+                                sw.WriteLine(fullText);
+                            }
+                        }
                         break;
                     case "quit":
                         checker = true;
