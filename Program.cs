@@ -35,6 +35,9 @@ namespace Adressbok
             {
                 string dummy = fileContent[i];
                 string[] dummyArray = dummy.Split(',');
+                dummyArray[1] = dummyArray[1].Substring(1);
+                dummyArray[2] = dummyArray[2].Substring(1);
+                dummyArray[3] = dummyArray[3].Substring(1);
                 PersonInfo P = new PersonInfo(dummyArray[0], dummyArray[1], dummyArray[2], dummyArray[3]);
                 personer.Add(P);
             }
@@ -54,6 +57,7 @@ namespace Adressbok
                         string[] nyPersonArr = AddPerson();
                         PersonInfo nyPerson = new PersonInfo(nyPersonArr[0], nyPersonArr[1], nyPersonArr[2], nyPersonArr[3]);
                         personer.Add(nyPerson);
+                        Console.WriteLine("Lade till en ny person till listan");
                         break;
                     case "show":
                         for (int i = 0; i < personer.Count; i++)
@@ -67,6 +71,7 @@ namespace Adressbok
                         string sRemovePos = Console.ReadLine();
                         int removePos = int.Parse(sRemovePos);
                         personer.RemoveAt(removePos - 1);
+                        Console.WriteLine("Tog bort personen på position " + removePos);
                         break;
                     case "save":
                         File.WriteAllText(filePath, "");
@@ -82,6 +87,7 @@ namespace Adressbok
                                 string fullText = dummy[0] + ", " + dummy[1] + ", " + dummy[2] + ", " + dummy[3];
                                 sw.WriteLine(fullText);
                             }
+                            Console.WriteLine("Sparning till fil lyckades!");
                         }
                         break;
                     case "quit":
