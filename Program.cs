@@ -45,7 +45,7 @@ namespace Adressbok
             do
             {
                 Console.WriteLine("\nVad vill du göra?" +
-                                  "\nKommandon: ['add', 'remove', 'save', 'show']");
+                                  "\nKommandon: ['add', 'show', 'remove', 'save']");
                 Console.Write("> ");
                 string command = Console.ReadLine();
                 switch (command)
@@ -55,15 +55,20 @@ namespace Adressbok
                         PersonInfo nyPerson = new PersonInfo(nyPersonArr[0], nyPersonArr[1], nyPersonArr[2], nyPersonArr[3]);
                         personer.Add(nyPerson);
                         break;
-                    case "remove":
-                        break;
-                    case "save":
-                        break;
                     case "show":
-                        for(int i = 0; i < personer.Count; i++)
+                        for (int i = 0; i < personer.Count; i++)
                         {
                             Console.WriteLine(i + 1 + ": " + personer[i].namn + ", " + personer[i].adress + ", " + personer[i].telefon + ", " + personer[i].email);
                         }
+                        break;
+                    case "remove":
+                        Console.WriteLine("Vilken position vill du ta bort?");
+                        Console.Write("> ");
+                        string sRemovePos = Console.ReadLine();
+                        int removePos = int.Parse(sRemovePos);
+                        personer.RemoveAt(removePos - 1);
+                        break;
+                    case "save":
                         break;
                     case "quit":
                         checker = true;
